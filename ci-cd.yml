@@ -1,0 +1,51 @@
+name: CI/CD Pipeline
+
+# 🚀 Se ejecuta en cada push o PR hacia main
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      # 1️⃣ Descarga tu código
+      - uses: actions/checkout@v3
+
+      # 2️⃣ Instala Node.js
+      - name: Configurar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      # 3️⃣ Instala dependencias
+      - name: Instalar dependencias
+        run: npm install
+
+      # 4️⃣ Ejecuta tests (si tienes)
+      - name: Ejecutar tests
+        run: npm test
+
+      # 5️⃣ Construye el proyecto
+      - name: Build
+        run: npm run build
+
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v3
+
+      # Ejemplo: subir build a un servidor remoto por SSH
+      - name: Deploy a servidor
+        uses: easingthemes/ssh-deploy@v2
+        with:
+          ssh-private-key: ${{ secrets.SSH_KEY }}
+          remote-user: ubuntu
+          server-ip: ${{ secrets.SERVER_IP }}
+          remote-path: /var/www/clientes_app
+          local-path: ./dist
+
