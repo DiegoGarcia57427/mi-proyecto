@@ -1,0 +1,26 @@
+# Archivo: .github/workflows/mi-workflow-basico.yml
+name: Workflow Básico
+
+# Se ejecuta manualmente desde GitHub
+on:
+  workflow_dispatch:
+
+jobs:
+  ejemplo:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Paso 1: Obtener el código del repo
+      - uses: actions/checkout@v3
+
+      # Paso 2: Mostrar un mensaje en los logs
+      - name: Saludo
+        run: echo "¡Hola! Este es mi workflow básico."
+
+      # Paso 3: Listar archivos del proyecto
+      - name: Listar archivos
+        run: ls -la
+
+
+
+
