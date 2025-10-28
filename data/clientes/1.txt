@@ -1,0 +1,7 @@
+{
+    "id": 1,
+    "nombre_completo": "Arturo Flores",
+    "correo": "arturo@gmail.com",
+    "descripcion_servicio": "Servicio test",
+    "fecha_registro": "2025-10-28 17:14:14"
+}
