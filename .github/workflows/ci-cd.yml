@@ -1,6 +1,5 @@
-name: CI/CD Pipeline
+name: CI/CD Python
 
-# 🚀 Se ejecuta en cada push o PR hacia main
 on:
   push:
     branches: [ main ]
@@ -8,44 +7,37 @@ on:
     branches: [ main ]
 
 jobs:
-  build-and-test:
+  build-test:
     runs-on: ubuntu-latest
+
     steps:
-      # 1️⃣ Descarga tu código
+      # 1️⃣ Descargar el código
       - uses: actions/checkout@v3
 
-      # 2️⃣ Instala Node.js
-      - name: Configurar Node.js
-        uses: actions/setup-node@v3
+      # 2️⃣ Configurar Python
+      - name: Configurar Python
+        uses: actions/setup-python@v5
         with:
-          node-version: 18
+          python-version: '3.11'
 
-      # 3️⃣ Instala dependencias
+      # 3️⃣ Instalar dependencias
       - name: Instalar dependencias
-        run: npm install
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      # 4️⃣ Ejecuta tests (si tienes)
+      # 4️⃣ Ejecutar tests (si tienes)
       - name: Ejecutar tests
-        run: npm test
-
-      # 5️⃣ Construye el proyecto
-      - name: Build
-        run: npm run build
+        run: |
+          if [ -d "tests" ]; then pytest -v; else echo "Sin tests"; fi
 
   deploy:
-    needs: build-and-test
+    needs: build-test
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
+
     steps:
       - uses: actions/checkout@v3
-
-      # Ejemplo: subir build a un servidor remoto por SSH
-      - name: Deploy a servidor
-        uses: easingthemes/ssh-deploy@v2
-        with:
-          ssh-private-key: ${{ secrets.SSH_KEY }}
-          remote-user: ubuntu
-          server-ip: ${{ secrets.SERVER_IP }}
-          remote-path: /var/www/clientes_app
-          local-path: ./dist
+      - name: Mostrar archivos generados
+        run: ls -la							
 
