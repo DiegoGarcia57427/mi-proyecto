@@ -1,0 +1,7 @@
+{
+    "id": 2,
+    "nombre_completo": "Sandra Garcia",
+    "correo": "garcia@gmail.com",
+    "descripcion_servicio": "Muebles",
+    "fecha_registro": "2025-10-29 13:30:29"
+}
