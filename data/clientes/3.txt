@@ -1,0 +1,7 @@
+{
+    "id": 3,
+    "nombre_completo": "Oscar Medina",
+    "correo": "oscar@gmail.com",
+    "descripcion_servicio": "Cocina",
+    "fecha_registro": "2025-10-29 13:53:14"
+}
