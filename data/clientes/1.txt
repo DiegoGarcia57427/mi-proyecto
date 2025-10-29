@@ -1,7 +1,7 @@
 {
     "id": 1,
-    "nombre_completo": "Arturo Flores",
-    "correo": "arturo@gmail.com",
-    "descripcion_servicio": "Servicio test",
+    "nombre_completo": "Mauricio Barragan ",
+    "correo": "mau@gmail.com",
+    "descripcion_servicio": "Servicio Test ",
     "fecha_registro": "2025-10-28 17:14:14"
 }

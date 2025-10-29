@@ -1,0 +1,7 @@
+{
+    "id": 4,
+    "nombre_completo": "Pedro Rosales",
+    "correo": "pedro@gmail.com",
+    "descripcion_servicio": "Servicio testing ",
+    "fecha_registro": "2025-10-29 14:06:25"
+}
