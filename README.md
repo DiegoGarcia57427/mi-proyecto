@@ -82,3 +82,4 @@ Cada cliente se almacena en un archivo `.txt` dentro de la carpeta `data/cliente
 
 👤 Diego Arturo García Flores
 📧 TecMilenio-Proyecto de programación 2025
+🚀 Prueba de deploy automático Sat Nov  1 02:02:46 CST 2025
