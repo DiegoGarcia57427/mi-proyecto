@@ -22,7 +22,7 @@ jobs:
         with:
           python-version: '3.11'
 
-      # 3️⃣ Cache de dependencias (acelera builds)
+      # 3️⃣ Cache de dependencias
       - name: Cache pip
         uses: actions/cache@v4
         with:
@@ -37,7 +37,7 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      # 5️⃣ Ejecutar tests (si existen)
+      # 5️⃣ Ejecutar tests
       - name: Ejecutar tests
         run: |
           if [ -d "tests" ]; then pytest -v; else echo "Sin tests"; fi
@@ -53,7 +53,7 @@ jobs:
       - name: Checkout del repositorio
         uses: actions/checkout@v4
 
-      # 2️⃣ Conectarse al servidor EC2 y desplegar
+      # 2️⃣ Conectarse al servidor EC2 y ejecutar el proyecto
       - name: Desplegar en EC2
         uses: appleboy/ssh-action@v1.2.0
         with:
@@ -63,5 +63,4 @@ jobs:
           script: |
             cd /home/ec2-user/mi-proyecto
             python3 main.py
-            echo "Despliegue completado correctamente ✅"
-
+            echo "✅ Despliegue completado correctamente"
