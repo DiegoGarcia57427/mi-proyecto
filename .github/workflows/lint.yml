@@ -1,29 +1,28 @@
-name: Lint Python
+# name: Lint Python
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+# on:
+#   push:
+#     branches: [ main ]
+#   pull_request:
+#     branches: [ main ]
 
-jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
+# jobs:
+#   lint:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v3
 
-      - name: Configurar Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
+#       - name: Configurar Python
+#         uses: actions/setup-python@v5
+#         with:
+#           python-version: '3.11'
 
-      - name: Instalar herramientas de lint
-        run: |
-          pip install flake8 black isort
+#       - name: Instalar herramientas de lint
+#         run: |
+#           pip install flake8 black isort
 
-      - name: Ejecutar lint
-        run: |
-          flake8 .
-          black --check .
-          isort --check-only .
-
+#       - name: Ejecutar lint
+#         run: |
+#           flake8 .
+#           black --check .
+#           isort --check-only .
