@@ -61,6 +61,7 @@ jobs:
           username: ec2-user
           key: ${{ secrets.AWS_PEM_KEY }}
           script: |
-            cd /home/ec2-user
+            cd /home/ec2-user/mi-proyecto
+            python3 main.py
             echo "Despliegue completado correctamente ✅"
 
