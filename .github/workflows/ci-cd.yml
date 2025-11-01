@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Clonar el código
+      # 1️⃣ Clonar el repositorio
       - name: Checkout del repositorio
         uses: actions/checkout@v4
 
@@ -22,22 +22,13 @@ jobs:
         with:
           python-version: '3.11'
 
-      # 3️⃣ Cache de dependencias
-      - name: Cache pip
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
-
-      # 4️⃣ Instalar dependencias
+      # 3️⃣ Instalar dependencias
       - name: Instalar dependencias
         run: |
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      # 5️⃣ Ejecutar tests
+      # 4️⃣ Ejecutar tests (si existen)
       - name: Ejecutar tests
         run: |
           if [ -d "tests" ]; then pytest -v; else echo "Sin tests"; fi
@@ -53,13 +44,15 @@ jobs:
       - name: Checkout del repositorio
         uses: actions/checkout@v4
 
-      # 2️⃣ Conectarse al servidor EC2 y ejecutar el proyecto
+      # 2️⃣ Desplegar en EC2
       - name: Desplegar en EC2
         uses: appleboy/ssh-action@v1.2.0
         with:
-          host: ${{ secrets.AWS_HOST }}
-          username: ec2-user
-          key: ${{ secrets.AWS_PEM_KEY }}
+          host: ${{ secrets.AWS_HOST }}          # IP pública de tu EC2
+          username: ec2-user                     # Usuario por defecto en Amazon Linux
+          key: ${{ secrets.AWS_PEM_KEY }}       # Contenido completo de tu .pem como secreto
+          port: 22
           script: |
-            cd /home/ec2-user
-            echo "✅ Despliegue completado correctamente"
+            cd /home/ec2-user/mi-proyecto        # Carpeta de tu proyecto en EC2
+            git pull origin main                  # Asegura que la última versión esté
+            echo "Despliegue completado correctamente ✅"
